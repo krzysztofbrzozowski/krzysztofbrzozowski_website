@@ -1,6 +1,4 @@
-.. raw:: html
-
-    <a><img src="https://krzysztofbrzozowski.com/media/2024/01/15/django-nginx-githubactions.jpg" alt="No message"/></a>
+![django-nginx-githubactions.jpg](https://krzysztofbrzozowski.com/media/2024/01/15/django-nginx-githubactions.jpg)
 
 ## Current tests and deploy status
 [![Tests](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/tests.yml/badge.svg)](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions?query=workflow%3ATests)
