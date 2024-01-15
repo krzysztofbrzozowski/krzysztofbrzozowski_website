@@ -1,5 +1,6 @@
 ## Current tests status
-![](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_com/actions/workflows/test-raw-django.yml/badge.svg)
+* TESTS:  ![](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/tests.yml/badge.svg)
+* DEPLOY: ![](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/deploy.yml/badge.svg)
 
 ## Project requirements
 * After push and sucessfull tests CI shall deploy code to remote server with rebased version of webpage
@@ -15,7 +16,7 @@
 * [x] Configure Gunicorn
 * [x] Create sketch for CI (GitHub actions) to be able pushing code into the server
 * [] Initial setup shall contain initialization od DB
-* [] The way how to create SECRET_KEY_KB
+* [x] The way how to create SECRET_KEY_KB
 
 ## Useful info
 Add secret key to your env variables (macOS)
@@ -66,7 +67,6 @@ docker logs --tail 1000 -f <container id>
 docker logs --tail 1000 -f 90c39aabcab0
 ```
 
-```
 Create new DB
 ```
 sudo -u postgres psql
