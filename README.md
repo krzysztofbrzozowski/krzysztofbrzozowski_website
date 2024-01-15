@@ -1,6 +1,10 @@
-## Current tests status
-* [![Tests](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/tests.yml/badge.svg)](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions?query=workflow%3ATests)
-* [![Deploy](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/deploy.yml/badge.svg)](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions?query=workflow%3ADeploy)
+.. raw:: html
+
+    <a><img src="https://krzysztofbrzozowski.com/media/2024/01/15/django-nginx-githubactions.jpg" alt="No message"/></a>
+
+## Current tests and deploy status
+[![Tests](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/tests.yml/badge.svg)](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions?query=workflow%3ATests)
+[![Deploy](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/deploy.yml/badge.svg)](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions?query=workflow%3ADeploy)
 
 ## Project requirements
 * After push and sucessfull tests CI shall deploy code to remote server with rebased version of webpage
@@ -33,14 +37,14 @@ env
 
 Your secret key shall be copied into Docker image if you are developing page locally e.g.:
 ```yml
-    environment:
-      - SECRET_KEY_KB=${SECRET_KEY_KB}
+environment:
+    - SECRET_KEY_KB=${SECRET_KEY_KB}
 ```
 
 Generate random secret key
 ```python
-    from django.core.management.utils import get_random_secret_key
-    print(get_random_secret_key())
+from django.core.management.utils import get_random_secret_key
+print(get_random_secret_key())
 ```
 
 ## Useful commands
