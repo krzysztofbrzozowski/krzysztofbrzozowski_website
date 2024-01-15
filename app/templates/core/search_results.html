@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+{% include 'head.html' %}
+{% endblock head %}
+
+{% block content %}
+<div class="container" id="search-results">
+  <div class="row">
+    <!-- Latest Posts -->
+    <main class="posts-listing col-lg-12">
+      <div class="container">
+        {% if searchq and queryset %}
+        <div class="row justify-content-center mb-4 mx-2">
+          <h3 class="h4 dark-color">results for: <u>{{ searchq }}</u></h3>
+        </div>
+        <div class="row">
+          <!-- post -->
+          {% for item in queryset %}
+          <div class="post col-xl-4">
+            <div class="post-thumbnail"><a href="{{ item.get_absolute_url }}"><img src="{{ item.thumbnail.url }}" alt="..." class="img-fluid"></a></div>
+            <div class="post-details">
+              <div class="post-meta d-flex justify-content-between">
+                <div class="date meta-last">{{ item.timestamp }}</div>
+              </div><a href="{{ item.get_absolute_url }}">
+                <h3 class="h4 dark-color">{{ item.title }}</h3>
+              </a>
+              <p class="text-muted">{{ item.overview }}</p>
+              <footer class="post-footer d-flex align-items-center">
+                <a href="{% url 'about' %}" class="author d-flex align-items-center flex-wrap">
+                  <div class="title"><span>{{ item.author.user.username }}</span></div>
+                </a>
+                <div class="date meta-last"><i class="icon-clock"></i>{{ item.timestamp|timesince }} ago</div>
+              </footer>
+              <div class="post-meta d-flex justify-content-between">
+                <div class="category">
+                  {% for category in item.categories.all %}
+                  <a class="dark-color-lt" href="{{ item.get_category_start_url }}{{ category }}">{{ category }}</a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <nav aria-label="Page navigation example">
+          <ul class="pagination pagination-template d-flex justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a href="{% url 'search' %}?q={{searchq}}&page={{ page_obj.previous_page_number }}" class="page-link"> <i
+                  class="fa fa-angle-left"></i></a></li>
+            <li class="page-item"><a href="{% url 'search' %}?q={{searchq}}&page={{ page_obj.previous_page_number }}"
+                class="page-link">{{ page_obj.previous_page_number}}</a></li>
+            {% endif %}
+            <li class="page-item"><a href="{% url 'search' %}?q={{searchq}}&page={{ page_obj.number }}" class="page-link active">{{ page_obj.number }}</a></li>
+            {% if page_obj.has_next %}
+            <li class="page-item"><a href="{% url 'search' %}?q={{searchq}}&page={{ page_obj.next_page_number }}"
+                class="page-link">{{ page_obj.next_page_number}}</a></li>
+            <li class="page-item"><a href="{% url 'search' %}?q={{searchq}}&page={{ page_obj.next_page_number }}" class="page-link"> <i
+                  class="fa fa-angle-right"></i></a></li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
+        {% else %}
+        <div class="row justify-content-center mb-4 mx-2">
+          <h3 class="h4 dark-color">no results with: <u>{{ searchq }}</u></h3>
+        </div>
+        {% endif %}
+      </div>
+    </main>
+  </div>
+</div>
+</div>
+{% endblock content %}

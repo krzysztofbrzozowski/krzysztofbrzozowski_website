@@ -1,0 +1,106 @@
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>krzysztofbrzozowski.com | programming, electronics, passion</title>
+    {% endif %}
+
+    {% if description %}
+    <meta name="description" content="{{ description }}">
+    {% else %}
+    <meta name="description"
+        content="Krzysztof Brzozowski | Webpages creating. Electronics design. Microcontrollers and application programming.">
+    {% endif %}
+
+    {% if keywords %}
+    <meta name="keywords" content="{{ keywords }}">
+    {% else %}
+    <meta name="keywords"
+        content="Krzysztof Brzozowski, Kraków, Krakow, programming, electronics, passion, webpage, webpages, developing, graphical projects">
+    {% endif %}
+
+    <meta name="author" content="Krzysztof Brzozowski">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+    {% if image %}
+    <meta itemprop="image" content="{{ 'https://' }}{{ request.META.HTTP_HOST }}{{ image }}">
+    {% endif %}
+
+    {% if robots %}
+    <meta name="robots" content="{{ robots }}">
+    {% else %}
+    <meta name="robots" content="all,follow">
+    {% endif %}
+
+    <!-- OG meta -->
+    {% if og_title %}
+    <meta property="og:title" content="{{ og_title }}">
+    {% else %}
+    <meta name="robots" content="Krzysztof Brzozowski | programming, electronics, passion">
+    {% endif %}
+
+    {% if og_type %}
+    <meta property="og:type" content="{{ og_type }}">
+    {% else %}
+    <meta property="og:type" content="website">
+    {% endif %}
+
+    <meta property="og:url" href="{{ request.build_absolute_uri }}">
+
+    {% if og_image %}
+    <meta property="og:image" content="{{ 'https://' }}{{ request.META.HTTP_HOST }}{{ og_image }}">
+    {% endif %}
+
+    {% if og_site_name %}
+    <meta property="og:site_name" content="{{ og_site_name }}">
+    {% else %}
+    <meta property="og:site_name" content="Krzysztof Brzozowski | programming, electronics, passion">
+    {% endif %}
+
+    {% if og_description %}
+    <meta property="og:description" content="{{ og_description }}">
+    {% else %}
+    <meta property="og:description"
+        content="Krzysztof Brzozowski | Webpages creating. Electronics design. Microcontrollers and application programming.">
+    {% endif %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontastic.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="stylesheet" href="{% static 'vendor/@fancyapps/fancybox/jquery.fancybox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.default.css' %}" id="theme-stylesheet">
+    <link rel="stylesheet" href="{% static 'css/custom_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-social.css' %}">
+    <link rel="stylesheet" href="{% static 'css/github.css' %}">
+    <link rel=" stylesheet" href="{% static 'css/cookiealert.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src='{% static "js/highlight.pack.js" %}'></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- Tweaks for older IEs-->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+    {% if not debug %}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-25Y0CQSRMG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-25Y0CQSRMG');
+    </script>
+    {% endif %}
+</head>

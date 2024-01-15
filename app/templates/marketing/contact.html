@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+
+{% if seo_metatags %}
+{% for seo in seo_metatags %}
+{% include 'head.html' with 
+    title=seo.meta_title
+    description=seo.meta_description
+    keywords=seo.meta_keywords
+    image=seo.meta_image.url
+    robots=seo.meta_robots
+
+    og_title=seo.og_meta_title
+    og_type=seo.og_meta_type
+    og_image=seo.og_meta_image
+    og_site_name=seo.og_meta_site_name
+    og_description=seo.og_meta_description
+  %}
+{% endfor %}
+
+{% else %}
+{% include 'head.html' %}
+{% endif %}
+
+{% endblock head %}
+
+{% block content %}
+<section>
+   <div class="d-flex align-items-center">
+      <div class="container" id="contact">
+         <div class="row">
+            <div class="col-lg-12 align-self-center text-center">
+               <p class="text-big">Write to me:</p>
+               <h2>
+                  <a class="dark-color contact-message" href="mailto:krzysztof_brzozowski@icloud.com">krzysztof_brzozowski@icloud.com</a>
+               </h2>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+{% endblock content %}

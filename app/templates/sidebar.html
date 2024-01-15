@@ -1,0 +1,49 @@
+<aside class="col-lg-4">
+    <!-- Widget [Search Bar Widget]-->
+    <div class="widget search">
+        {% if widget_for == "posts" %}
+        <header>
+            <h3 class="h6 dark-color-lt">search in posts</h3>
+        </header>
+        <form action="{% url 'search-posts' %}" class="search-form">
+            <div class="form-group">
+                <input type="text" name="q" placeholder="What are you looking for?" />
+                <button type="submit" class="submit"><i class="icon-search"></i></button>
+            </div>
+        </form>
+        {% else %}
+        <header>
+            <h3 class="h6 dark-color-lt">search in projects</h3>
+        </header>
+        <form action="{% url 'search-projects' %}" class="search-form">
+            <div class="form-group">
+                <input type="text" name="q" placeholder="What are you looking for?" />
+                <button type="submit" class="submit"><i class="icon-search"></i></button>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+    <!-- Widget [Categories Widget]-->
+    <div class="widget">
+        {% if widget_for == "posts" %}
+        <header>
+            <h3 class="h6 dark-color-lt">posts categories</h3>
+        </header>
+        {% for category in category_count %}
+        <div class="item d-flex justify-content-between">
+            <a href="{% url 'category-post-list' %}{{ category.categories__title }}">{{ category.categories__title }}</a>
+            <span>{{ category.categories__title__count }}</span>
+        </div>
+        {% endfor %} {% else %}
+        <header>
+            <h3 class="h6 dark-color-lt">projects categories</h3>
+        </header>
+        {% for category in category_count %}
+        <div class="item d-flex justify-content-between">
+            <a href="{% url 'category-project-list' %}{{ category.categories__title }}">{{ category.categories__title }}</a>
+            <span>{{ category.categories__title__count }}</span>
+        </div>
+        {% endfor %} {% endif%}
+    </div>
+    <!-- Widget [Tags Cloud Widget]-->
+</aside>

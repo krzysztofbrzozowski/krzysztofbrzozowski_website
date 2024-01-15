@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+{% include 'head.html' with 
+  title=project.meta_title
+  description=project.meta_description
+  keywords=project.meta_keywords
+  image=project.thumbnail.url
+  robots=project.meta_robots
+
+  og_title=project.og_meta_title
+  og_type=project.og_meta_type
+  og_image=project.thumbnail.url
+  og_site_name=project.og_meta_site_name
+  og_description=project.og_meta_description
+%}
+{% endblock head %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <!-- Latest Posts -->
+    <main class="post blog-post col-lg-8">
+      <div class="container">
+        <div class="post-single">
+          <div class="post-thumbnail">
+            <img src="{{ project.thumbnail.url }}" alt="..." class="img-fluid">
+          </div>
+          <div class="post-details">
+            <div class="post-meta d-flex justify-content-between">
+              <div class="category">
+                {% for category in project.categories.all %}
+                <a class="dark-color-lt" href="{% url 'category-project-list' %}{{ category }}">{{ category }}</a>
+                {% endfor %}
+              </div>
+            </div>
+            <h1 class="dark-color my-3">{{ project.title }}</h1>
+            <p class="overview dark-color-lt my-3">{{ project.overview }}</p>
+            <div class="post-footer align-items-center flex-column flex-sm-row post-info">
+              <div class="d-flex align-items-center flex-wrap">
+                <a href="{% url 'about' %}" class="author d-flex align-items-center flex-wrap">
+                  {% if project.author.profile_picture %}
+                  <div class="avatar"><img src="{{ project.author.profile_picture.url }}" alt="..." class="img-fluid"></div>
+                  {% endif %}
+                  <div class="title meta-last"><span>Autor: {{ project.author.user.username }}</span></div>
+                </a>
+              </div>
+              <div class="align-items-center flex-wrap mt-3">
+                <div class="d-flex">
+                  <div class="date">started: {{ project.timestamp|date:"d M Y" }}</div>
+                  <div class="date meta-last" style="text-transform: lowercase">{{ project.timestamp|timesince }} ago</div>
+                </div>
+                {% if project.timestamp_modified %}
+                <div class="d-flex">
+                  <div class="date">modified: {{ project.timestamp_modified|date:"d M Y" }}</div>
+                  <div class="date meta-last" style="text-transform: lowercase">{{ project.timestamp_modified|timesince }} ago</div>
+                </div>
+                {% endif %}
+                {% if project.timestamp_finished %}
+                <div class="d-flex">
+                  <div class="date">finished: {{ project.timestamp_finished|date:"d M Y" }}</div>
+                  <div class="date meta-last" style="text-transform: lowercase">{{ project.timestamp_finished|timesince }} ago</div>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+            <hr />
+
+            <div class="post-body dark-color-lt">
+              {{ project.content | safe }}
+            </div>
+            <div class="post-tags">
+              {% for tag in project.tags.all %}
+              <a href="{% url 'tag-project-list' %}{{ tag }}" class="tag">{{ tag }}</a>
+              {% endfor%}
+            </div>
+            <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row">
+              {% if project.previous_post %}
+              <a href="{{ project.previous_post.get_absolute_url }}" class="prev-post text-left d-flex align-items-center">
+                <div class="icon prev"><i class="fa fa-angle-left"></i></div>
+                <div class="text">previous project
+                  <h6>{{ project.previous_post.title }}</h6>
+                </div>
+              </a>
+              {% endif %}
+              {% if project.next_post %}
+              <a href="{{ project.next_post.get_absolute_url }}" class="next-post text-right d-flex align-items-center justify-content-end">
+                <div class="text">next project
+                  <h6>{{ project.next_post.title }}</h6>
+                </div>
+                <div class="icon next"><i class="fa fa-angle-right"> </i></div>
+              </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    {% include 'sidebar.html' with widget_for="projects" most_recent=most_recent category_count=category_count tags=tags %}
+  </div>
+</div>
+{% endblock content %}

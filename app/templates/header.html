@@ -1,0 +1,59 @@
+<header class="header">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="search-area">
+      <div class="search-area-inner d-flex align-items-center justify-content-center">
+        <div class="close-btn"><i class="icon-close"></i></div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-8">
+            <form action="{% url 'search' %}">
+              <div class="form-group">
+                <input type="text" name="q" id="search" placeholder="What are you looking for?" />
+                <button type="submit" class="submit">
+                  <i class="icon-search-1"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="navbar-header d-flex align-items-center justify-content-between">
+        <a href="/" class="navbar-brand">krzysztofbrzozowski.com</a>
+        <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false"
+          aria-label="Toggle navigation" class="navbar-toggler">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <div id="navbarcollapse" class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="/" class="nav-link {% if request.resolver_match.url_name == 'main' %} active {% endif %}">home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'post-list' %}" class="nav-link {% if 'post' in request.resolver_match.url_name %} active {% endif %}">posts
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'project-list' %}" class="nav-link {% if 'proje' in request.resolver_match.url_name %} active {% endif %}">projects
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'redirect-github' %}" class="nav-link {% if 'redirect-github' in request.resolver_match.url_name %} active {% endif %}">GitHub
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'about' %}" class="nav-link {% if request.resolver_match.url_name == 'about' %} active {% endif %}">about me
+            </a>
+          </li>
+        </ul>
+        <div class="navbar-text">
+          <a href="" class="search-btn"><i class="icon-search-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

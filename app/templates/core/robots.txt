@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /search/*
+Disallow: /search/
+Disallow: /*.pdf
+Disallow: /*.ppt
+Disallow: /*.doc
+Disallow: /*.xls
+Disallow: /*.txt
+Disallow: /515*
+
+Host: https://krzysztofbrzozowski.com
+Sitemap: https://krzysztofbrzozowski.com/sitemap.xml

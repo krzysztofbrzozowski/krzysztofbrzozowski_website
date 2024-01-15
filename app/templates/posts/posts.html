@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+
+{% if seo_metatags %}
+{% for seo in seo_metatags %}
+{% include 'head.html' with 
+    title=seo.meta_title
+    description=seo.meta_description
+    keywords=seo.meta_keywords
+    image=seo.meta_image.url
+    robots=seo.meta_robots
+
+    og_title=seo.og_meta_title
+    og_type=seo.og_meta_type
+    og_image=seo.og_meta_image
+    og_site_name=seo.og_meta_site_name
+    og_description=seo.og_meta_description
+  %}
+{% endfor %}
+
+{% else %}
+{% include 'head.html' %}
+{% endif %}
+
+{% endblock head %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <!-- Latest Posts -->
+    <main class="posts-listing col-lg-8">
+      <div class="container">
+        {% if searchq and queryset %}
+        <div class="row justify-content-center mb-4 mx-2">
+          <h3 class="h4 dark-color">results for: <u>{{ searchq }}</u></h3>
+        </div>
+        {% elif searchq and not queryset %}
+        <div class="row justify-content-center mb-4 mx-2">
+          <h3 class="h4 dark-color">no results with: <u>{{ searchq }}</u></h3>
+        </div>
+        {% endif %}
+        <div class="row">
+          <!-- post -->
+          {% for post in queryset %}
+          <div class="post col-xl-10">
+            <div class="post-thumbnail">
+              <a href="{{ post.get_absolute_url }}">
+                <img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid">
+              </a>
+            </div>
+            <div class="post-details">
+              <a href="{{ post.get_absolute_url }}" class="mt-2">
+                <h3 class="h4 dark-color">{{ post.title }}</h3>
+              </a>
+              <p class="text-muted">{{ post.overview }}</p>
+              <footer class="post-footer d-flex align-items-center">
+                <a href="{% url 'about' %}" class="author d-flex align-items-center flex-wrap"></a>
+                <div class="date meta-last"><i class="icon-clock"></i>{{ post.timestamp }}</div>
+              </footer>
+              <div class="post-meta d-flex justify-content-between">
+                <div class="category">
+                  {% for category in post.categories.all %}
+                  <a class="dark-color-lt" href="{% url 'category-post-list' %}{{ category }}">{{ category }}</a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <nav aria-label="Page navigation example">
+          <ul class="pagination pagination-template d-flex justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a href="{% url 'search-posts' %}?q={{searchq}}&page={{ page_obj.previous_page_number }}" class="page-link"> <i
+                  class="fa fa-angle-left"></i></a></li>
+            <li class="page-item"><a href="{% url 'search-posts' %}?q={{searchq}}&page={{ page_obj.previous_page_number }}"
+                class="page-link">{{ page_obj.previous_page_number}}</a></li>
+            {% endif %}
+            <li class="page-item"><a href="{% url 'search-posts' %}?q={{searchq}}&page={{ page_obj.number }}" class="page-link active">{{ page_obj.number }}</a>
+            </li>
+            {% if page_obj.has_next %}
+            <li class="page-item"><a href="{% url 'search-posts' %}?q={{searchq}}&page={{ page_obj.next_page_number }}"
+                class="page-link">{{ page_obj.next_page_number}}</a></li>
+            <li class="page-item"><a href="{% url 'search-posts' %}?q={{searchq}}&page={{ page_obj.next_page_number }}" class="page-link"> <i
+                  class="fa fa-angle-right"></i></a></li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% elif queryset.number %}
+        <nav aria-label="Page navigation example">
+          <ul class="pagination pagination-template d-flex justify-content-center">
+            {% if queryset.has_previous %}
+            <li class="page-item"><a href="?{{ page_request_var }}={{ queryset.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left"></i></a>
+            </li>
+            <li class="page-item"><a href="?{{ page_request_var }}={{ queryset.previous_page_number }}" class="page-link">{{ queryset.previous_page_number}}</a>
+            </li>
+            {% endif %}
+            <li class="page-item"><a href="?{{ page_request_var }}={{ queryset.number }}" class="page-link active">{{ queryset.number }}</a></li>
+            {% if queryset.has_next %}
+            <li class="page-item"><a href="?{{ page_request_var }}={{ queryset.next_page_number }}" class="page-link">{{ queryset.next_page_number}}</a></li>
+            <li class="page-item"><a href="?{{ page_request_var }}={{ queryset.next_page_number }}" class="page-link"> <i class="fa fa-angle-right"></i></a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
+      </div>
+    </main>
+    {% include 'sidebar.html' with widget_for="posts" most_recent=most_recent category_count=category_count tags=tags %}
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,25 @@
+venv.nosync
+venv
+.idea
+**/*.pyc
+**/__pycache__
+media
+static
+static_in_env
+.DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
+**/migrations/*
+
+# DB files
+*.sqlite3
+*.pgsql
+db-data
+db-data/*
+
+!**/migrations/__init__.py
+!**/migrations/__pycache__/__init__*
+
+# Private keys
+secret_key.*

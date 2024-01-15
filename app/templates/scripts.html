@@ -1,0 +1,17 @@
+{% load static %}
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/popper.js/umd/popper.min.js' %}"> </script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'vendor/jquery.cookie/jquery.cookie.js' %}"> </script>
+<script src="{% static 'vendor/@fancyapps/fancybox/jquery.fancybox.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/cookiealert.js' %}"></script>
+<script src="{% static 'js/jquery.teletype.js' %}"></script>
+<script src="{% static 'js/front.js' %}"></script>
+
+
+<script>$(document).ready(function () { $(window).scroll(function () { $(this).scrollTop() > 100 ? $("#back-to-top:hidden").stop(!0, !0).fadeIn() : $("#back-to-top").stop(!0, !0).fadeOut() }), $("#back-to-top").click(function () { return $("body,html").animate({ scrollTop: 0 }, 400), !1 }) });</script>
+<script src='{% static "js/highlight.pack.js" %}'></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script> $('#year').text(new Date().getFullYear());</script>
+<script> $(".subscribe-form").submit(function (e) { $.post("/subscribe/", $(this).serialize(e), function (e) { var t = JSON.parse(e); $(".type-text-subscribe").each(function () { var e = t.message; $(this).empty().attr("title", "").teletype({ text: e, typeDelay: 1, backDelay: 10, cursor: "▋", delay: .5, blinkSpeed: 50, preserve: !0, loop: 1 }) }) }), e.preventDefault() }), $(".type-text").each(function () { var e = $(this).text(); $(this).empty().attr("title", "").teletype({ text: e, typeDelay: 1, backDelay: 10, cursor: "▋", delay: .5, blinkSpeed: 50, preserve: !0, loop: 1 }) }); </script>

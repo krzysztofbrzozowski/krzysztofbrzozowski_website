@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+{% include 'head.html' with robots="all,follow" %}
+{% endblock head %}
+
+{% block content %}
+<section id="privacy-policy-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 dark-color">
+                <p class="text-center" style="font-size: 1.3em; line-height: 1.25;">
+                    <u>Cookies</u>
+                </p>
+                <p style="text-align: justify; font-size: 1em; line-height: 1.25;">
+                    My website, like almost all websites of that time, uses cookies to improve the quality of pages content.
+                    <br><br>
+                    Cookies are small text information stored on your end device (e.g. smartphone, tablet, computer -
+                    generally on the device on which you browse this page), which can be read by my ICT system.
+                    <br><br>
+                    I'm using cookies for the purposes:
+                </p>
+                <div style="text-align: justify; font-size: 0.95em; line-height: 1.25;">
+                    <ul style="padding-left: 24px; font-family: 'ubuntu_light';">
+                        <li>Ensure the proper functioning of the website,</li>
+                        <li>Improve the security and speed of the website,</li>
+                        <li>Improvements to user functions,</li>
+                        <li>Use of analytical tools,</li>
+                        <li>Use of marketing tools,</li>
+                    </ul>
+                    <p>
+
+                    </p>
+                </div>
+                <p style="text-align: justify; font-size: 1em; line-height: 1.25;">
+                    During the first visit to the website, information about the use of cookies is displayed. Accept and close this information means,
+                    that you consent to the use of cookies in accordance with the provisions of this privacy policy.
+                    <br><br>
+                    You can withdraw your consent at any time by deleting cookies.
+                    The user has the option to configure his web browser in such a way as to prevent the storage of cookies on their end devices.
+                    Disabling cookies may cause difficulties while using the website.
+                </p>
+                <p class="text-center" style="font-size: 1.3em; line-height: 1.25;">
+                    <u>Analysis and statistics</u>
+                </p>
+                <p style="text-align: justify; font-size: 1em; line-height: 1.25;">
+                    I also use cookies to track website statistics such as the number of visitors, time spent on the website, and visited
+                    pages, browser type and type of operating system used to display the page, etc.
+                    For this purpose, I use the Google Analytics tool. The collected information in this regard is anonymous and does not allow for the identification of a person
+                    viewing. Google LLC cookies related to the Google Analytics service are used for this purpose.
+                    <br><br>
+                    The use of the Google Analytics tool is related to the implementation of the tracking script (the so-called tracking code) provided by
+                    by google in the code of my site. This script is based on cookies but may also use other tracking technologies.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>        
+    {% load static %}
+    <head>
+        <link rel="stylesheet" href="{% static 'css/custom_style.css' %}">
+    </head>
+    <body style="background-color: #111;">
+        <h1 style="
+        font-family: 'ubuntu_medium';
+        color: #eee;   
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);" class="type-text">there is no such page (404)</h1>
+    </body>
+</html>
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'js/jquery.teletype.js' %}"></script>
+<script>$(".type-text").each(function(){var e=$(this).text();$(this).empty().attr("title","").teletype({text:e,typeDelay:1,backDelay:10,cursor:"▋",delay:.5,blinkSpeed:50,preserve:!0,loop:1})});</script>

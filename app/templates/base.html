@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+{% block head %}
+{% endblock head %}
+
+<body id="body">
+    {% include 'header.html' %}
+
+    {% block content %}
+    {% endblock content %}
+
+    {% include 'back_to_top.html' %}
+    {% include 'cookie_banner.html' %}
+    {% include 'footer.html' %}
+    {% include 'scripts.html' %}
+</body>
+
+</html>

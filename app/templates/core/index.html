@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+
+{% if seo_metatags %}
+{% for seo in seo_metatags %}
+{% include 'head.html' with 
+    title=seo.meta_title
+    description=seo.meta_description
+    keywords=seo.meta_keywords
+    image=seo.meta_image.url
+    robots=seo.meta_robots
+
+    og_title=seo.og_meta_title
+    og_type=seo.og_meta_type
+    og_image=seo.og_meta_image
+    og_site_name=seo.og_meta_site_name
+    og_description=seo.og_meta_description
+  %}
+{% endfor %}
+
+{% else %}
+{% include 'head.html' %}
+{% endif %}
+
+{% endblock head %}
+{% block content %}
+
+<!-- New posts-projects -->
+<section class="featured-posts no-padding-top post-featured-dark">
+  <div class="container">
+    {% for object in object_list %}
+    <div class="row d-flex align-items-stretch my-5" id="featured-row">
+      <div class="image col-lg-5" id="img-{{ forloop.counter }}">
+        <a style="width: 100%; height: 100%" href="{{ object.get_absolute_url }}">
+          <img src="{{ object.thumbnail.url }}" alt="..." class="img-fluid" />
+        </a>
+      </div>
+      <div class="text col-lg-7" id="text-{{ forloop.counter }}">
+        <div class="text-inner d-flex align-items-center">
+          <div class="content" style="width: 100%;">
+            <header class="post-header">
+              <div class="category">
+                {% for category in object.categories.all %}
+                <a href="{% url 'category-post-list' %}{{ category }}">{{ category }}</a>
+                {% endfor %}
+              </div>
+              <a href="{{ object.get_absolute_url }}">
+                <h2 class="h4 featured-title">{{ object.title }}</h2>
+              </a>
+            </header>
+            <p class="featured-overview">
+              {{ object.overview|truncatewords:40 }}
+            </p>
+            <footer class="post-footer d-flex align-items-center post-info">
+              <a href="{% url 'about' %}" class="author d-flex align-items-center flex-wrap">
+                <div class="title"><span>{{ object.author }}</span></div>
+              </a>
+              <div class="date">
+                <i class="icon-clock"></i> {{ object.timestamp|timesince }} ago
+              </div>
+              <div class="comments">
+                <i class="icon-eye"></i>{{ object.view_count }}
+              </div>
+            </footer>
+            <div id="featured-nav">
+              <a href="{{ object.get_absolute_url }}" class="tag">read more</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock content %}
