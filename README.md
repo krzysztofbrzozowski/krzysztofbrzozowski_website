@@ -4,6 +4,9 @@
 [![Tests](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/tests.yml/badge.svg)](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions?query=workflow%3ATests)
 [![Deploy](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/deploy.yml/badge.svg)](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions?query=workflow%3ADeploy)
 
+## Some description you can find
+![Django based website deployed using github actions](https://krzysztofbrzozowski.com/project/django-based-website-deployed-using-github-actions)
+
 ## Project requirements
 * After push and sucessfull tests CI shall deploy code to remote server with rebased version of webpage
 * Webpage is running in Docker container
