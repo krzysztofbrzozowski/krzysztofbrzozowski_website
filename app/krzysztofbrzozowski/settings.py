@@ -28,12 +28,14 @@ with open("/app/bin/secret_key.txt") as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1',
-                 'localhost',
-                 '0.0.0.0',
-                 'krzysztofbrzozowski.com',
-                 'www.krzysztofbrzozowski.com']
+if  DEBUG:
+    ALLOWED_HOSTS = ['*']
 
+
+else:
+    ALLOWED_HOSTS = [
+        'krzysztofbrzozowski.com',
+        'www.krzysztofbrzozowski.com']
 
 # Application definition
 
