@@ -21,4 +21,10 @@ if [ "true" == $DO_INITIAL_DEPLOY ]; then
     # Create superuser
     python manage.py migrate
     python manage.py createsuperuser --no-input 2>&1
+
+    if [ ! -f "static_in_env" ]; then
+        mkdir static_in_env
+    fi
+    # Collect static files
+    python manage.py collectstatic --no-input 2>&1
 fi

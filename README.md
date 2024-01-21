@@ -20,7 +20,7 @@
 * [x] Configure Nginx using container
 * [x] Configure Gunicorn
 * [x] Create sketch for CI (GitHub actions) to be able pushing code into the server
-* [] Initial setup shall contain initialization od DB
+* [x] Initial setup shall contain initialization od DB
 * [x] The way how to create SECRET_KEY_KB
 
 ## Useful info
@@ -80,6 +80,16 @@ psql -U postgres
 CREATE DATABASE db;
 ```
 
+Kill all containers
+```
+docker kill $(docker ps -q)
+```
+
+Clean everything
+```
+docker system prune
+```
+
 How to copy PostgreSQL DB
 ```
 On server side
@@ -87,6 +97,11 @@ $ export PGPASSWORD="passwd" ; pg_dump -U <db_user | default: postgres> your_db 
 
 In Docker Container
 $ psql -U <db_user | default: postgres> db < place/to/store/db.pgsql
+```
+
+Send some file using SCP
+```
+scp -r src_dir root@dest_ip:/home/user/dsc_dir
 ```
 
 ## Install Docker on Ubuntu
@@ -113,4 +128,9 @@ Got permission denied while trying to connect to the Docker daemon socket at uni
 ```
 sudo groupadd docker
 sudo usermod -aG docker ${USER}
+```
+
+## Submodules
+```
+git config --global submodule.recurse true
 ```

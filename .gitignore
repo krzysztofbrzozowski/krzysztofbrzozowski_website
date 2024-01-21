@@ -4,7 +4,7 @@ venv
 **/*.pyc
 **/__pycache__
 media
-static
+static_bckp
 static_in_env
 .DS_Store
 ._.DS_Store
