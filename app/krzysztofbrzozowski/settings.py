@@ -137,7 +137,7 @@ if os.environ.get('PRODUCTION') == 'true':
         }
     }
 
-else:
+if os.environ.get('PRODUCTION') == 'false':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
