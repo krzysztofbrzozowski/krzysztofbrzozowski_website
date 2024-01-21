@@ -12,8 +12,8 @@ services:
     volumes:
       - ./app:/app
     command: >
-      sh -c "chmod 755 /app/bin/create_secret.sh &&
-             sh -c /app/bin/create_secret.sh &&
+      sh -c "chmod 755 /app/bin/initial_deploy.sh &&
+             sh -c /app/bin/initial_deploy.sh &&
              python manage.py await_for_db &&
              python manage.py migrate &&
              gunicorn krzysztofbrzozowski.wsgi:application --bind 0.0.0.0:8000"
@@ -22,13 +22,17 @@ services:
     #          python manage.py migrate &&
     #          python manage.py runserver 0.0.0.0:8000"
     environment:
-      # - SECRET_KEY_KB=${SECRET_KEY_KB}
       - DB_HOST=db
       - DB_NAME=db
       - DB_USER=postgres
       - DB_PASS=postgres
+      - PRODUCTION=false
+      - DO_INITIAL_DEPLOY=true
 
-      - PRODUCTION=true
+      # Env variables for initial deploy
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_PASSWORD=admin
+      - DJANGO_SUPERUSER_EMAIL=admin@admin.com
 
     depends_on:
       - db
@@ -42,7 +46,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - '5432:5432'
+      - "5432:5432"
 
   nginx:
     depends_on:

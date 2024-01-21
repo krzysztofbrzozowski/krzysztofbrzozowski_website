@@ -27,10 +27,3 @@ COPY . /app
 WORKDIR /app
 RUN adduser -D django_user
 USER django_user
-
-# USER root
-# WORKDIR /app/bin
-# RUN chmod a+x *
-# CMD ./create_secret.sh
-
-# WORKDIR /app
