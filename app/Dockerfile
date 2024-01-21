@@ -25,5 +25,4 @@ RUN pip install -r /requirements.txt && \
 COPY . /app
 
 WORKDIR /app
-RUN adduser -D django_user
-USER django_user
+USER root
