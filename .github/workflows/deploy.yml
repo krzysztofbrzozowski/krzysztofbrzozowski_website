@@ -23,7 +23,7 @@ jobs:
                 script: |
                     whoami
                     ls -al
-                    [ ! -d "/home/${{ secrets.USERNAME }}/dest_dir" ] && git clone git@github.com:krzysztofbrzozowski/krzysztofbrzozowski_website.git dest_dir
+                    if [ ! -d "/home/${{ secrets.USERNAME }}/dest_dir" ]; then git clone git@github.com:krzysztofbrzozowski/krzysztofbrzozowski_website.git dest_dir; fi
                     cd dest_dir
                     git reset --hard && git checkout master && git pull origin master
                     docker compose -f "docker-compose.yml" up -d --build
