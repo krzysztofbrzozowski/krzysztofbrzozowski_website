@@ -132,6 +132,6 @@ sudo usermod -aG docker ${USER}
 
 ## Submodules
 ```
-git config --global submodule.recursive true
+git config --global submodule.recurse true
 git submodule update --init --recursive
 ```
