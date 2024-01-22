@@ -1,42 +1,153 @@
 ![django-nginx-githubactions.jpg](https://krzysztofbrzozowski.com/media/2024/01/15/django-nginx-githubactions.jpg)
 
-## Current tests and deploy status
+# Current tests and deploy status
 [![Tests](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/tests.yml/badge.svg)](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions?query=workflow%3ATests)
 [![Deploy](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/deploy.yml/badge.svg)](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions?query=workflow%3ADeploy)
 
-## Some description you can find
-[Django based website deployed using github actions](https://krzysztofbrzozowski.com/project/django-based-website-deployed-using-github-actions)
+# About the project
+Personal blog backend and part of frontend. Live demo can find [krzysztofbrzozowski.com](https://krzysztofbrzozowski.com)
 
-## Project requirements
-* After push and sucessfull tests CI shall deploy code to remote server with rebased version of webpage
-* Webpage is running in Docker container
-* Webpage is using database to store posts, projects and other required backend data
+Project is based on Django 5, PostgreSQL, NGINX and Docker. All of the code is available widely except static files.
 
-## TODO
-* [x] Fix current CI issues (Error: Version 3.1 with arch x64 not found)
-* [x] Copy production DB form server
-* [x] Distinguish in Django settings running in prod mode and test/debug mode
-* [x] Run project locally with production DB
-* [x] Configure Nginx using container
-* [x] Configure Gunicorn
-* [x] Create sketch for CI (GitHub actions) to be able pushing code into the server
-* [x] Initial setup shall contain initialization od DB
-* [x] The way how to create SECRET_KEY_KB
+More description can be found in article [Django based website deployed using github actions](https://krzysztofbrzozowski.com/project/django-based-website-deployed-using-github-actions)
 
-## Useful info
+# First steps to run website locally
+Clone a repo. Repository contains submodules. To download those run
+(be aware not all of them are public)
+```bash
+git config --global submodule.recurse true
+
+or
+
+git submodule update --init --recursive
+```
+
+Run Docker compose 
+```bash
+docker compose -f "docker-compose.yml" up -d --build
+```
+
+# First steps to run website on VPS
+### Install Docker on Ubuntu
+```bash
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+
+apt-cache policy docker-ce
+
+sudo apt install docker-ce
+
+sudo systemctl status docker
+```
+
+### Install Docker Compose
+```bash
+mkdir -p ~/.docker/cli-plugins/
+
+curl -SL https://github.com/docker/compose/releases/download/v2.3.3/
+
+docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+
+chmod +x ~/.docker/cli-plugins/docker-compose
+
+docker compose version
+```
+
+### Manage Docker as a non-root user
+More info [Post-installation steps for Docker Engine](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
+```bash
+---
+permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock:
+---
+Solution:
+
+sudo groupadd docker
+
+sudo usermod -aG docker ${USER}
+
+su -s ${USER}
+```
+### Setup secrets for GitHub Actions and run action
+![github-actions-secrets.png](https://krzysztofbrzozowski.com//media/2024/01/22/github-actions-secrets.png)
+
+
+# Useful commands
+Docker compose (to run project)
+```bash
+docker compose -f "docker-compose.yml" up -d --build
+```
+
+See logs nginx
+```bash
+docker logs <container id>
+
+docker logs 2677eef108c4
+```
+
+Run shell in Docker container
+```bash
+docker exec -it <container id> sh
+
+docker exec -it 90c39aabcab0 sh
+```
+
+See logs per container
+```bash
+docker logs --tail 1000 -f <container id>
+
+docker logs --tail 1000 -f 90c39aabcab0
+```
+
+Create new DB
+```bash
+sudo -u postgres psql
+
+in container you can use:
+psql -U postgres
+CREATE DATABASE db;
+```
+
+Kill all containers
+```bash
+docker kill $(docker ps -q)
+```
+
+Clean every docker image, container
+```bash
+docker system prune
+```
+
+How to copy PostgreSQL DB
+```bash
+On server side
+$ export PGPASSWORD="passwd" ; pg_dump -U <db_user | default: postgres> your_db > place/to/store/db.pgsql
+
+In Docker Container
+$ psql -U <db_user | default: postgres> db < place/to/store/db.pgsql
+```
+
+Send some file using SCP
+```bash
+scp -r src_dir root@dest_ip:/home/user/dsc_dir
+```
+
 Add secret key to your env variables (macOS)
 
-```
+```bash
 echo "export SECRET_KEY_KB=!secret!" >> ~/.zshenv
+
 source ~/.zshenv
 ```
 
-List of used env variables (macOS)
-```
+List of used env variables (macOS, Ubuntu)
+```bash
 env
 ```
 
-Your secret key shall be copied into Docker image if you are developing page locally e.g.:
+Your secret key shall be copied into Docker image if you are developing page locally e.g.
 ```yml
 environment:
     - SECRET_KEY_KB=${SECRET_KEY_KB}
@@ -48,90 +159,6 @@ from django.core.management.utils import get_random_secret_key
 print(get_random_secret_key())
 ```
 
-## Useful commands
-Docker compose (to run project)
-```
-docker compose -f "docker-compose.yml" up -d --build
-```
 
-See logs nginx
-```
-docker logs <container id>
-docker logs 2677eef108c4
-```
 
-Run shell in Docker container
-```
-docker exec -it <container id> sh
-docker exec -it 90c39aabcab0 sh
-```
 
-See logs per container
-```
-docker logs --tail 1000 -f <container id>
-docker logs --tail 1000 -f 90c39aabcab0
-```
-
-Create new DB
-```
-sudo -u postgres psql
-- in container you can use:
-psql -U postgres
-CREATE DATABASE db;
-```
-
-Kill all containers
-```
-docker kill $(docker ps -q)
-```
-
-Clean everything
-```
-docker system prune
-```
-
-How to copy PostgreSQL DB
-```
-On server side
-$ export PGPASSWORD="passwd" ; pg_dump -U <db_user | default: postgres> your_db > place/to/store/db.pgsql
-
-In Docker Container
-$ psql -U <db_user | default: postgres> db < place/to/store/db.pgsql
-```
-
-Send some file using SCP
-```
-scp -r src_dir root@dest_ip:/home/user/dsc_dir
-```
-
-## Install Docker on Ubuntu
-```
-sudo apt install apt-transport-https ca-certificates curl software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-apt-cache policy docker-ce
-sudo apt install docker-ce
-
-sudo systemctl status docker
-```
-
-Docker compose
-```
-mkdir -p ~/.docker/cli-plugins/
-curl -SL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
-chmod +x ~/.docker/cli-plugins/docker-compose
-
-docker compose version
-```
-
-Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock:?
-```
-sudo groupadd docker
-sudo usermod -aG docker ${USER}
-```
-
-## Submodules
-```
-git config --global submodule.recurse true
-git submodule update --init --recursive
-```

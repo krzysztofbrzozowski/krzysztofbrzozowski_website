@@ -31,7 +31,6 @@ DEBUG = True
 if  DEBUG:
     ALLOWED_HOSTS = ['*']
 
-
 else:
     ALLOWED_HOSTS = [
         'krzysztofbrzozowski.com',
