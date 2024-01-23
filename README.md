@@ -11,6 +11,10 @@ Project is based on Django 5, PostgreSQL, NGINX and Docker. All of the code is a
 
 More description can be found in article [Django based website deployed using github actions](https://krzysztofbrzozowski.com/project/django-based-website-deployed-using-github-actions)
 
+## NGINX
+In project docker-gen generates reverse proxy configs ->
+[more info](https://github.com/nginx-proxy/nginx-proxy/tree/main)
+
 # First steps to run website locally
 Clone a repo. Repository contains submodules. To download those run
 (be aware not all of them are public)
@@ -158,7 +162,6 @@ Generate random secret key
 from django.core.management.utils import get_random_secret_key
 print(get_random_secret_key())
 ```
-
 
 
 
