@@ -15,11 +15,12 @@ services:
       sh -c "chmod 755 /app/bin/initial_deploy.sh &&
              sh -c /app/bin/initial_deploy.sh &&
              python manage.py await_for_db &&
+             python manage.py makemigrations && 
              python manage.py migrate &&
              gunicorn krzysztofbrzozowski.wsgi:application --bind 0.0.0.0:8000"
 
     environment:
-      - VIRTUAL_HOST=localhost
+      - VIRTUAL_HOST=${{ secrets.HOST }}
       - DB_HOST=db
       - DB_NAME=db
       - DB_USER=postgres

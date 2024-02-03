@@ -19,12 +19,12 @@ services:
              gunicorn krzysztofbrzozowski.wsgi:application --bind 0.0.0.0:8000"
 
     environment:
-      - VIRTUAL_HOST=localhost
+      - VIRTUAL_HOST=${{ secrets.HOST }}
       - DB_HOST=db
       - DB_NAME=db
       - DB_USER=postgres
       - DB_PASS=postgres
-      - PRODUCTION=true
+      - PRODUCTION=flase
 
       # Env variables for initial deploy
       - DJANGO_SUPERUSER_USERNAME=admin

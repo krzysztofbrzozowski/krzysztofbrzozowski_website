@@ -58,7 +58,16 @@ chmod +x ~/.docker/cli-plugins/docker-compose
 docker compose version
 ```
 
-### Manage Docker as a non-root user
+### KNOWN ISSUE: during first-time init
+```bash
+The authenticity of host '<<IP address>>' port <<port#>>: can't be established.
+ECDSA key fingerprint is SHA256:<<some_sha>>.
+Are you sure you want to continue connecting (yes/no)?
+
+Just try to initialize any other repo via SSH on VPS and type 'yes'
+```
+
+### KNOWN ISSUE: Manage Docker as a non-root user
 More info [Post-installation steps for Docker Engine](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
 ```bash
 ---
@@ -71,6 +80,9 @@ sudo groupadd docker
 sudo usermod -aG docker ${USER}
 
 su -s ${USER}
+
+or
+sudo chmod 777 /var/run/docker.sock
 ```
 ### Setup secrets for GitHub Actions and run action
 ![github-actions-secrets.png](https://krzysztofbrzozowski.com//media/2024/01/22/github-actions-secrets.png)
