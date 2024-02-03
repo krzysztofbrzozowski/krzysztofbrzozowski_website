@@ -25,8 +25,9 @@ services:
       - DB_NAME=db
       - DB_USER=postgres
       - DB_PASS=postgres
-      - PRODUCTION=true
-      - DO_INITIAL_DEPLOY=false
+
+      - PRODUCTION=false
+      - DO_INITIAL_DEPLOY=true
 
       # Env variables for initial deploy
       - DJANGO_SUPERUSER_USERNAME=admin
