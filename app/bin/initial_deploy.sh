@@ -19,6 +19,7 @@ if [ "true" == $DO_INITIAL_DEPLOY ]; then
     fi
 
     # Create superuser
+    python manage.py makemigrations
     python manage.py migrate
     python manage.py createsuperuser --no-input 2>&1
 
