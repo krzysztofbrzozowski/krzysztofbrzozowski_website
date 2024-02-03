@@ -20,13 +20,13 @@ services:
              gunicorn krzysztofbrzozowski.wsgi:application --bind 0.0.0.0:8000"
 
     environment:
-      - VIRTUAL_HOST=${{ secrets.HOST }}
+      - VIRTUAL_HOST=localhost
       - DB_HOST=db
       - DB_NAME=db
       - DB_USER=postgres
       - DB_PASS=postgres
-      - PRODUCTION=false
-      - DO_INITIAL_DEPLOY=true
+      - PRODUCTION=true
+      - DO_INITIAL_DEPLOY=false
 
       # Env variables for initial deploy
       - DJANGO_SUPERUSER_USERNAME=admin
@@ -46,6 +46,24 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
+
+  db-backup:
+    image: postgres:latest
+    depends_on:
+      - db
+    volumes:
+      - ./db-backup:/db-backup
+    command: >
+      bash -c "while true; do
+        PGPASSWORD=$$POSTGRES_PASSWORD pg_dump -h db -U $$POSTGRES_USER $$POSTGRES_DB > /db-backup/db_$$(date +%Y-%m-%d-%H-%M-%S).pgsql
+        echo ""Backup done at $$(date +%Y-%m-%d_%H:%M:%S)""
+        ls -1 /db-backup/*.dump | head -n -2 | xargs rm -f
+        sleep 86400
+      done"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: db
 
   nginx:
     depends_on:
