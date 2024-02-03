@@ -23,8 +23,8 @@ jobs:
                 script: |
                     whoami
                     ls -al
-                    if [ ! -d "/home/${{ secrets.USERNAME }}/dest_dir" ]; then git clone git@github.com:krzysztofbrzozowski/krzysztofbrzozowski_website.git dest_dir; fi
-                    cd dest_dir
+                    if [ ! -d "/home/${{ secrets.USERNAME }}/krzysztofbrzozowski_webpage" ]; then git clone git@github.com:krzysztofbrzozowski/krzysztofbrzozowski_website.git krzysztofbrzozowski_webpage; fi
+                    cd krzysztofbrzozowski_webpage
                     git reset --hard && git checkout master && git pull origin master && git submodule update --init --recursive
                     docker compose -f "docker-compose.yml" up -d --build
 
