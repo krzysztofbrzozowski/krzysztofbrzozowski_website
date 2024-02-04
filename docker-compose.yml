@@ -32,7 +32,7 @@ services:
 
       - PRODUCTION=false
       - DO_INITIAL_DEPLOY=true
-      - DEBUG=true
+      - DEBUG=false
 
       # Env variables for initial deploy
       - DJANGO_SUPERUSER_USERNAME=admin
