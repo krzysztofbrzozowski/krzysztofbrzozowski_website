@@ -14,5 +14,5 @@ jobs:
         echo "${{ secrets.POSTGRES_DATABASE }}" > app/bin/postgres_database.txt
         echo "${{ secrets.POSTGRES_USERNAME }}" > app/bin/postgres_username.txt
         echo "${{ secrets.POSTGRES_PASSWORD }}" > app/bin/postgres_password.txt
-        echo "${{ secrets.ADMIN_PATH }}" > app/bin/postgres_password.txt
+        echo "${{ secrets.ADMIN_PATH }}" > app/bin/admin_path.txt
         docker compose -f "docker-compose.yml" up -d --build
