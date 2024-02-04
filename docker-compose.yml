@@ -23,11 +23,11 @@ services:
       - VIRTUAL_HOST=localhost
       - DB_HOST=db
       - DB_NAME=db
-      - DB_USER=postgres
-      - DB_PASS=postgres
+      - POSTGRES_USERNAME_FILE=/run/secrets/POSTGRES_USERNAME
+      - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
 
-      - PRODUCTION=false
-      - DO_INITIAL_DEPLOY=true
+      - PRODUCTION=true
+      - DO_INITIAL_DEPLOY=false
 
       # Env variables for initial deploy
       - DJANGO_SUPERUSER_USERNAME=admin
@@ -36,6 +36,9 @@ services:
 
     depends_on:
       - db
+    secrets:
+      - POSTGRES_USERNAME
+      - POSTGRES_PASSWORD
 
   db:
     image: postgres:latest
@@ -44,27 +47,32 @@ services:
       - ./db-data:/var/lib/postgresql/data 
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
     ports:
       - "5432:5432"
+    secrets:
+      - POSTGRES_USERNAME
+      - POSTGRES_PASSWORD
 
-  db-backup:
-    image: postgres:latest
-    depends_on:
-      - db
-    volumes:
-      - ./db-backup:/db-backup
-    command: >
-      bash -c "while true; do
-        PGPASSWORD=$$POSTGRES_PASSWORD pg_dump -h db -U $$POSTGRES_USER $$POSTGRES_DB > /db-backup/db_$$(date +%Y-%m-%d-%H-%M-%S).pgsql
-        echo ""Backup done at $$(date +%Y-%m-%d_%H:%M:%S)""
-        ls -1 /db-backup/*.dump | head -n -2 | xargs rm -f
-        sleep 86400
-      done"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: db
+
+  # db-backup:
+  #   image: postgres:latest
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - ./db-backup:/db-backup
+  #   command: >
+  #     bash -c "while true; do
+  #       PGPASSWORD=$$POSTGRES_PASSWORD pg_dump -h db -U $$POSTGRES_USER $$POSTGRES_DB > /db-backup/db_$$(date +%Y-%m-%d-%H-%M-%S).pgsql
+  #       echo ""Backup done at $$(date +%Y-%m-%d_%H:%M:%S)""
+  #       ls -1 /db-backup/*.dump | head -n -2 | xargs rm -f
+  #       cp -r /db-backup ../db-backup
+  #       sleep 86400
+  #     done"
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #     POSTGRES_DB: db
 
   nginx:
     depends_on:
@@ -87,3 +95,9 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl
+
+secrets:
+  POSTGRES_USERNAME:
+    file: ./app/bin/postgres_username.txt
+  POSTGRES_PASSWORD:
+    file: ./app/bin/postgres_password.txt

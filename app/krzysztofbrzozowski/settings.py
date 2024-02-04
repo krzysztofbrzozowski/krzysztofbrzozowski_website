@@ -128,13 +128,18 @@ WSGI_APPLICATION = 'krzysztofbrzozowski.wsgi.application'
 
 
 if os.environ.get('PRODUCTION') == 'true':
+    with open(os.environ.get('POSTGRES_USERNAME_FILE')) as f:
+        POSTGRES_USERNAME = f.read().strip()
+    with open(os.environ.get('POSTGRES_PASSWORD_FILE')) as f:
+        POSTGRES_PASSWORD = f.read().strip()
+
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'HOST': os.environ.get('DB_HOST'),
-            'NAME': os.environ.get('DB_NAME'),
-            'USER': os.environ.get('DB_USER'),
-            'PASSWORD': os.environ.get('DB_PASS'),
+            'ENGINE':   'django.db.backends.postgresql',
+            'HOST':     os.environ.get('DB_HOST'),
+            'NAME':     os.environ.get('DB_NAME'),
+            'USER':     POSTGRES_USERNAME,
+            'PASSWORD': POSTGRES_PASSWORD,
         }
     }
 

@@ -23,5 +23,7 @@ db-backup/*
 !**/migrations/__init__.py
 !**/migrations/__pycache__/__init__*
 
-# Private keys
+# Private keys, passwords and usernames
 secret_key.*
+*password*
+*username*
