@@ -27,7 +27,7 @@ with open("/app/bin/secret_key.txt") as f:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-if os.environ.get('PRODUCTION') == 'true':
+if os.environ.get('DEBUG') == 'true':
     DEBUG = True
 
 if DEBUG:
