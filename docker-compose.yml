@@ -29,8 +29,9 @@ services:
       - POSTGRES_USERNAME_FILE=/run/secrets/POSTGRES_USERNAME
       - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
 
-      - PRODUCTION=false
-      - DO_INITIAL_DEPLOY=true
+      - PRODUCTION=true
+      - DO_INITIAL_DEPLOY=false
+      - DEBUG=true
 
       # Env variables for initial deploy
       - DJANGO_SUPERUSER_USERNAME=admin

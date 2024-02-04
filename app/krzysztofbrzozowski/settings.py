@@ -26,9 +26,11 @@ with open("/app/bin/secret_key.txt") as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+if os.environ.get('PRODUCTION') == 'true':
+    DEBUG = True
 
-if  DEBUG:
+if DEBUG:
     ALLOWED_HOSTS = ['*']
 
 else:
