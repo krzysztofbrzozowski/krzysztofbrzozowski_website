@@ -89,8 +89,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      # - conf:/etc/nginx/conf.d
-      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+      - conf:/etc/nginx/conf.d
+      # - "/var/run/docker.sock:/tmp/docker.sock:ro"
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
       - certs:/etc/nginx/certs:ro
