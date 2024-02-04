@@ -22,7 +22,7 @@ services:
     environment:
       - VIRTUAL_HOST=localhost
       - DB_HOST=db
-      - DB_NAME=db
+      - POSTGRES_DATABASE_FILE=/run/secrets/POSTGRES_DATABASE
       - POSTGRES_USERNAME_FILE=/run/secrets/POSTGRES_USERNAME
       - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
 
@@ -37,6 +37,7 @@ services:
     depends_on:
       - db
     secrets:
+      - POSTGRES_DATABASE
       - POSTGRES_USERNAME
       - POSTGRES_PASSWORD
 
@@ -101,3 +102,5 @@ secrets:
     file: ./app/bin/postgres_username.txt
   POSTGRES_PASSWORD:
     file: ./app/bin/postgres_password.txt
+  POSTGRES_DATABASE:
+    file: ./app/bin/postgres_database.txt

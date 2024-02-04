@@ -23,7 +23,8 @@ db-backup/*
 !**/migrations/__init__.py
 !**/migrations/__pycache__/__init__*
 
-# Private keys, passwords and usernames
+# Ignore private keys, databases, passwords and usernames
 secret_key.*
+postgres_database.*
 *password*
 *username*
