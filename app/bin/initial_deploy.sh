@@ -21,7 +21,7 @@ if [ "true" == $DO_INITIAL_DEPLOY ]; then
     # Create superuser
     python manage.py makemigrations
     python manage.py migrate
-    python manage.py createsuperuser --no-input 2>&1
+    # python manage.py createsuperuser --no-input 2>&1
 fi
 
 if [ ! -f "static_in_env" ]; then

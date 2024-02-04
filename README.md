@@ -11,6 +11,11 @@ Project is based on Django 5, PostgreSQL, NGINX and Docker. All of the code is a
 
 More description can be found in article [Django based website deployed using github actions](https://krzysztofbrzozowski.com/project/django-based-website-deployed-using-github-actions)
 
+## Recreate DB
+```bash
+pg_dump -U postgres -a -t projects_projectsmeta srcdb | psql -U <db_user> destdb; 
+```
+
 ## NGINX
 In project docker-gen generates reverse proxy configs ->
 [more info](https://github.com/nginx-proxy/nginx-proxy/tree/main)
