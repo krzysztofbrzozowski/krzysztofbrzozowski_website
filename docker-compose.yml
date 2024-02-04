@@ -20,8 +20,8 @@ services:
              gunicorn krzysztofbrzozowski.wsgi:application --bind 0.0.0.0:8000"
 
     environment:
-      - VIRTUAL_HOST=krzysztofbrzozowski.com
-      - LETSENCRYPT_HOST=krzysztofbrzozowski.com
+      - VIRTUAL_HOST=localhost
+      - LETSENCRYPT_HOST=localhost
       - LETSENCRYPT_EMAIL=prim_zone_0x@icloud.com
 
       - DB_HOST=db
@@ -31,7 +31,7 @@ services:
 
       - PRODUCTION=true
       - DO_INITIAL_DEPLOY=false
-      - DEBUG=true
+      - DEBUG=false
 
       # Env variables for initial deploy
       - DJANGO_SUPERUSER_USERNAME=admin
