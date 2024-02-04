@@ -20,7 +20,7 @@ services:
              gunicorn krzysztofbrzozowski.wsgi:application --bind 0.0.0.0:8000"
 
     environment:
-      - VIRTUAL_HOST=localhost
+      - VIRTUAL_HOST=krzysztofbrzozowski.com
       - DB_HOST=db
       - POSTGRES_DATABASE_FILE=/run/secrets/POSTGRES_DATABASE
       - POSTGRES_USERNAME_FILE=/run/secrets/POSTGRES_USERNAME
