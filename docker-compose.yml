@@ -20,8 +20,8 @@ services:
              gunicorn krzysztofbrzozowski.wsgi:application --bind 0.0.0.0:8000"
 
     environment:
-      - VIRTUAL_HOST=krzysztofbrzozowski.com
-      - LETSENCRYPT_HOST=krzysztofbrzozowski.com
+      - VIRTUAL_HOST=localhost
+      - LETSENCRYPT_HOST=localhost
       - LETSENCRYPT_EMAIL=prim_zone_0x@icloud.com
 
       - DB_HOST=db
@@ -90,11 +90,10 @@ services:
       - "443:443"
     volumes:
       - conf:/etc/nginx/conf.d
-      # - "/var/run/docker.sock:/tmp/docker.sock:ro"
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
       - certs:/etc/nginx/certs:ro
-    network_mode: bridge
+      - /var/run/docker.sock:/tmp/docker.sock:ro
 
   # NGINX REVERSE PROXY CONFIG
   dockergen:
@@ -107,7 +106,6 @@ services:
       - ./nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl
     labels:
       - "com.github.nginx-proxy.docker-gen"
-    network_mode: bridge
     
   # ACME COMPANION (LET'S ENCRYPT PROTOCOL)
   acme-companion:
@@ -121,7 +119,8 @@ services:
       - certs:/etc/nginx/certs:rw
       - acme:/etc/acme.sh
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    network_mode: bridge
+    depends_on:
+      - nginx-proxy
 
 secrets:
   POSTGRES_USERNAME:
@@ -132,13 +131,10 @@ secrets:
     file: ./app/bin/postgres_database.txt
 
 volumes:
-  conf:
-  vhost:
-  html:
+  postgres_data:
+  static_volume:
+  media_volume:
   certs:
+  html:
+  vhost:
   acme:
-
-networks:
-  default:
-    name: nginx-proxy
-    external: true
