@@ -21,6 +21,9 @@ services:
 
     environment:
       - VIRTUAL_HOST=krzysztofbrzozowski.com
+      - LETSENCRYPT_HOST=krzysztofbrzozowski.com
+      - LETSENCRYPT_EMAIL=prim_zone_0x@icloud.com
+
       - DB_HOST=db
       - POSTGRES_DATABASE_FILE=/run/secrets/POSTGRES_DATABASE
       - POSTGRES_USERNAME_FILE=/run/secrets/POSTGRES_USERNAME
@@ -86,7 +89,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - conf:/etc/nginx/conf.d
+      # - conf:/etc/nginx/conf.d
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
       - certs:/etc/nginx/certs:ro
@@ -133,3 +137,8 @@ volumes:
   html:
   certs:
   acme:
+
+networks:
+  default:
+    name: nginx-proxy
+    external: true
