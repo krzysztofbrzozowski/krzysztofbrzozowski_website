@@ -30,3 +30,4 @@ secret_key.*
 postgres_database.*
 *password*
 *username*
+admin_path.*

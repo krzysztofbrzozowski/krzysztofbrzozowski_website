@@ -28,6 +28,7 @@ services:
       - POSTGRES_DATABASE_FILE=/run/secrets/POSTGRES_DATABASE
       - POSTGRES_USERNAME_FILE=/run/secrets/POSTGRES_USERNAME
       - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
+      - ADMIN_PATH_FILE=/run/secrets/ADMIN_PATH
 
       - PRODUCTION=false
       - DO_INITIAL_DEPLOY=true
@@ -44,6 +45,7 @@ services:
       - POSTGRES_DATABASE
       - POSTGRES_USERNAME
       - POSTGRES_PASSWORD
+      - ADMIN_PATH
 
   db:
     image: postgres:latest
@@ -130,6 +132,8 @@ secrets:
     file: ./app/bin/postgres_password.txt
   POSTGRES_DATABASE:
     file: ./app/bin/postgres_database.txt
+  ADMIN_PATH:
+    file: ./app/bin/admin_path.txt
 
 volumes:
   postgres_data:

@@ -30,6 +30,7 @@ jobs:
                     echo "${{ secrets.POSTGRES_DATABASE }}" > /home/${{ secrets.USERNAME }}/krzysztofbrzozowski_webpage/app/bin/postgres_database.txt
                     echo "${{ secrets.POSTGRES_USERNAME }}" > /home/${{ secrets.USERNAME }}/krzysztofbrzozowski_webpage/app/bin/postgres_username.txt
                     echo "${{ secrets.POSTGRES_PASSWORD }}" > /home/${{ secrets.USERNAME }}/krzysztofbrzozowski_webpage/app/bin/postgres_password.txt
+                    echo "${{ secrets.ADMIN_PATH }}" > /home/${{ secrets.USERNAME }}/krzysztofbrzozowski_webpage/app/bin/admin_path.txt
 
                     docker compose -f "docker-compose.yml" up -d --build
 
