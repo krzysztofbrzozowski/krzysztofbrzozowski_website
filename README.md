@@ -14,6 +14,9 @@ More description can be found in article [Django based website deployed using gi
 ## Recreate DB
 ```bash
 pg_dump -U postgres -a -t projects_projectsmeta srcdb | psql -U <db_user> destdb; 
+
+
+pg_dump --column-inserts -a -t zones_seq -t interway -t table_3 ... > /tmp/zones_seq.sql  
 ```
 
 ## NGINX

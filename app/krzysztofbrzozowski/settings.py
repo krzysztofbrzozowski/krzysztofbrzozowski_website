@@ -37,6 +37,8 @@ else:
     ALLOWED_HOSTS = [
         'dev.krzysztofbrzozowski.com',
         'www.dev.krzysztofbrzozowski.com']
+    
+    CSRF_TRUSTED_ORIGINS = ['https://dev.krzysztofbrzozowski.com/']
 
 # Application definition
 
