@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build env
       run: |
-        echo "${{ secrets.POSTGRES_DATABASE }}" > app/bin/postgres_username.txt
+        echo "${{ secrets.POSTGRES_DATABASE }}" > app/bin/postgres_database.txt
         echo "${{ secrets.POSTGRES_USERNAME }}" > app/bin/postgres_username.txt
         echo "${{ secrets.POSTGRES_PASSWORD }}" > app/bin/postgres_password.txt
         docker compose -f "docker-compose.yml" up -d --build
