@@ -35,8 +35,8 @@ if DEBUG:
 
 else:
     ALLOWED_HOSTS = [
-        'krzysztofbrzozowski.com',
-        'www.krzysztofbrzozowski.com']
+        'dev.krzysztofbrzozowski.com',
+        'www.dev.krzysztofbrzozowski.com']
 
 # Application definition
 

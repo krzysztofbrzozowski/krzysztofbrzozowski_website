@@ -19,6 +19,8 @@ db-data
 db-data/*
 db-backup
 db-backup/*
+bckp
+bckp/*
 
 !**/migrations/__init__.py
 !**/migrations/__pycache__/__init__*
