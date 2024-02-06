@@ -30,7 +30,7 @@ services:
       - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
       - ADMIN_PATH_FILE=/run/secrets/ADMIN_PATH
 
-      - PRODUCTION=false
+      - PRODUCTION=true
       - DO_INITIAL_DEPLOY=false
       - DEBUG=false
 
