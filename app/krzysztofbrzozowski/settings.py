@@ -35,7 +35,7 @@ if DEBUG:
 
 else:
     ALLOWED_HOSTS = [
-        'dev.krzysztofbrzozowski.com',
+        'https://*.krzysztofbrzozowski.com',
         'www.dev.krzysztofbrzozowski.com']
     
     CSRF_TRUSTED_ORIGINS = ['https://*.krzysztofbrzozowski.com']
