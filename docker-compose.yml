@@ -11,6 +11,7 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app
+      - static:/app/static
     command: >
       sh -c "chmod 755 /app/bin/initial_deploy.sh &&
              sh -c /app/bin/initial_deploy.sh &&
@@ -51,7 +52,7 @@ services:
     image: postgres:latest
     restart: always
     volumes:
-      - ./db-data:/var/lib/postgresql/data 
+      - ./db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
@@ -60,26 +61,6 @@ services:
     secrets:
       - POSTGRES_USERNAME
       - POSTGRES_PASSWORD
-
-
-  # db-backup:
-  #   image: postgres:latest
-  #   depends_on:
-  #     - db
-  #   volumes:
-  #     - ./db-backup:/db-backup
-  #   command: >
-  #     bash -c "while true; do
-  #       PGPASSWORD=$$POSTGRES_PASSWORD pg_dump -h db -U $$POSTGRES_USER $$POSTGRES_DB > /db-backup/db_$$(date +%Y-%m-%d-%H-%M-%S).pgsql
-  #       echo ""Backup done at $$(date +%Y-%m-%d_%H:%M:%S)""
-  #       ls -1 /db-backup/*.dump | head -n -2 | xargs rm -f
-  #       cp -r /db-backup ../db-backup
-  #       sleep 86400
-  #     done"
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: postgres
-  #     POSTGRES_DB: db
 
   # NGINX BASIC CONFIG 
   nginx-proxy:
@@ -97,6 +78,7 @@ services:
       - html:/usr/share/nginx/html
       - certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - static:/var/www/html/static
 
   # NGINX REVERSE PROXY CONFIG
   dockergen:
@@ -144,3 +126,27 @@ volumes:
   vhost:
   acme:
   conf:
+  static:
+
+
+
+
+
+# db-backup:
+  #   image: postgres:latest
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - ./db-backup:/db-backup
+  #   command: >
+  #     bash -c "while true; do
+  #       PGPASSWORD=$$POSTGRES_PASSWORD pg_dump -h db -U $$POSTGRES_USER $$POSTGRES_DB > /db-backup/db_$$(date +%Y-%m-%d-%H-%M-%S).pgsql
+  #       echo ""Backup done at $$(date +%Y-%m-%d_%H:%M:%S)""
+  #       ls -1 /db-backup/*.dump | head -n -2 | xargs rm -f
+  #       cp -r /db-backup ../db-backup
+  #       sleep 86400
+  #     done"
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #     POSTGRES_DB: db
