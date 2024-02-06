@@ -11,6 +11,7 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app
+      - ./app/static:/app/static
     command: >
       sh -c "chmod 755 /app/bin/initial_deploy.sh &&
              sh -c /app/bin/initial_deploy.sh &&
@@ -28,7 +29,7 @@ services:
       - ADMIN_PATH_FILE=/run/secrets/ADMIN_PATH
 
       - PRODUCTION=true
-      - DO_INITIAL_DEPLOY=true
+      - DO_INITIAL_DEPLOY=false
       - DEBUG=true
 
       # Env variables for initial deploy
@@ -66,6 +67,7 @@ services:
       # - "443:443"
     volumes:
       - /etc/nginx/conf.d
+      - static:/var/www/html/static
 
   dockergen:
     image: nginxproxy/docker-gen
@@ -86,3 +88,15 @@ secrets:
     file: ./app/bin/postgres_database.txt
   ADMIN_PATH:
     file: ./app/bin/admin_path.txt
+
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+  certs:
+  html:
+  vhost:
+  acme:
+  conf:
+  static:
