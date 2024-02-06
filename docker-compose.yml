@@ -11,7 +11,6 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app
-      - static:/app/static
     command: >
       sh -c "chmod 755 /app/bin/initial_deploy.sh &&
              sh -c /app/bin/initial_deploy.sh &&
