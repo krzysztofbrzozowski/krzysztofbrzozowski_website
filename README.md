@@ -1,5 +1,13 @@
 ![django-nginx-githubactions.jpg](https://krzysztofbrzozowski.com/media/2024/01/15/django-nginx-githubactions.jpg)
 
+Issues TODO:
+* [] When flag debug is set everything is working on a server  - static and media files are served, without static files are not served
+* [] Sqlite3 db not creating during initialization
+* [] Move nginx confing to serve static files
+* [] DB cron doing funny stuff
+* [] Add debug logs
+
+
 # Current tests and deploy status
 [![Tests](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/tests.yml/badge.svg)](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions?query=workflow%3ATests)
 [![Deploy](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/deploy.yml/badge.svg)](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions?query=workflow%3ADeploy)
