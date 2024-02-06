@@ -38,7 +38,7 @@ else:
         'dev.krzysztofbrzozowski.com',
         'www.dev.krzysztofbrzozowski.com']
     
-    CSRF_TRUSTED_ORIGINS = ['https://dev.krzysztofbrzozowski.com/']
+    CSRF_TRUSTED_ORIGINS = ['https://*.krzysztofbrzozowski.com']
 
 # Application definition
 
