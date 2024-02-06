@@ -27,19 +27,22 @@ with open("/app/bin/secret_key.txt") as f:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.environ.get('DEBUG') == 'true':
-    ALLOWED_HOSTS = ['*']
+    # Set global flag to True (not working because lazy prop?)
     DEBUG = True
+
+    ALLOWED_HOSTS = ['*']
 
 
 if os.environ.get('DEBUG') == 'false':
+    # Set global flag to False (not working because lazy prop?)
+    DEBUG = False
+
     ALLOWED_HOSTS = [
         'https://dev.krzysztofbrzozowski.com',
         'www.dev.krzysztofbrzozowski.com']
     
     CSRF_TRUSTED_ORIGINS = [
-        'https://*.krzysztofbrzozowski.com']
-    DEBUG = False
-    
+        'https://*.krzysztofbrzozowski.com']    
 
 # Application definition
 
