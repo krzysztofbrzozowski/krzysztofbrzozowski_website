@@ -11,7 +11,7 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app
-      - ./app/static:/app/static
+      # - ./app/static:/app/static
     command: >
       sh -c "chmod 755 /app/bin/initial_deploy.sh &&
              sh -c /app/bin/initial_deploy.sh &&
@@ -21,6 +21,8 @@ services:
 
     environment:
       - VIRTUAL_HOST=localhost
+      - LETSENCRYPT_HOST=localhost
+      - LETSENCRYPT_EMAIL=prim_zone_0x@icloud.com
 
       - DB_HOST=db
       - POSTGRES_DATABASE_FILE=/run/secrets/POSTGRES_DATABASE
@@ -28,8 +30,8 @@ services:
       - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
       - ADMIN_PATH_FILE=/run/secrets/ADMIN_PATH
 
-      - PRODUCTION=true
-      - DO_INITIAL_DEPLOY=false
+      - PRODUCTION=false
+      - DO_INITIAL_DEPLOY=true
       - DEBUG=true
 
       # Env variables for initial deploy
@@ -56,18 +58,20 @@ services:
     ports:
       - "5432:5432"
 
+  # NGINX BASIC CONFIG 
   nginx:
     depends_on:
       - app
     restart: always
-    image: nginx
+    image: nginx:alpine
     container_name: nginx
     ports:
       - "80:80"
-      # - "443:443"
+      - "443:443"
     volumes:
       - /etc/nginx/conf.d
-      - static:/var/www/html/static
+      - certs:/etc/nginx/certs:ro
+      # - static:/var/www/html/static
 
   dockergen:
     image: nginxproxy/docker-gen
@@ -91,12 +95,12 @@ secrets:
 
 
 volumes:
-  postgres_data:
-  static_volume:
-  media_volume:
+#   postgres_data:
+#   static_volume:
+#   media_volume:
   certs:
-  html:
-  vhost:
-  acme:
-  conf:
-  static:
+#   html:
+#   vhost:
+#   acme:
+#   conf:
+#   static:
