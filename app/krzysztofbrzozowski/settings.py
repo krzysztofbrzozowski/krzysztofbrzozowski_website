@@ -26,19 +26,20 @@ with open("/app/bin/secret_key.txt") as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 if os.environ.get('DEBUG') == 'true':
+    ALLOWED_HOSTS = ['*']
     DEBUG = True
 
-if DEBUG:
-    ALLOWED_HOSTS = ['*']
 
-else:
+if os.environ.get('DEBUG') == 'false':
     ALLOWED_HOSTS = [
         'https://dev.krzysztofbrzozowski.com',
         'www.dev.krzysztofbrzozowski.com']
     
-    CSRF_TRUSTED_ORIGINS = ['https://*.krzysztofbrzozowski.com']
+    CSRF_TRUSTED_ORIGINS = [
+        'https://*.krzysztofbrzozowski.com']
+    DEBUG = False
+    
 
 # Application definition
 
