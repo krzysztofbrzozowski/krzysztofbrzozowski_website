@@ -76,6 +76,7 @@ services:
       - vhost:/etc/nginx/vhost.d
       - certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./app/media:/usr/src/app/media
 
   # NGINX REVERSE PROXY CONFIG
   dockergen:
