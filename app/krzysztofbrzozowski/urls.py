@@ -106,5 +106,5 @@ handler500 = error_500
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-print(f'Output from urls ->  {urlpatterns=}')
+# print(f'Output from urls ->  {urlpatterns=}')
 
