@@ -29,7 +29,8 @@ services:
       - POSTGRES_USERNAME_FILE=/run/secrets/POSTGRES_USERNAME
       - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
       - ADMIN_PATH_FILE=/run/secrets/ADMIN_PATH
-
+      
+      # DEPLOY KEY SETTINGS 
       - PRODUCTION=true
       - DO_INITIAL_DEPLOY=false
       - DEBUG=false
