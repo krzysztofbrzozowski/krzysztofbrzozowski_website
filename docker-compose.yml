@@ -32,7 +32,7 @@ services:
 
       # DEPLOY KEY SETTINGS 
       - PRODUCTION=true
-      - DO_INITIAL_DEPLOY=true
+      - DO_INITIAL_DEPLOY=false
       - DEBUG=false
 
       # Env variables for initial deploy
