@@ -1,13 +1,5 @@
 ![django-nginx-githubactions.jpg](https://krzysztofbrzozowski.com/media/2024/01/15/django-nginx-githubactions.jpg)
 
-Issues TODO:
-* [] When flag debug is set everything is working on a server  - static and media files are served, without static files are not served
-* [] Sqlite3 db not creating during initialization
-* [] Move nginx confing to serve static files
-* [] DB cron doing funny stuff
-* [] Add debug logs
-
-
 # Current tests and deploy status
 [![Tests](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/tests.yml/badge.svg)](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions?query=workflow%3ATests)
 [![Deploy](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions/workflows/deploy.yml/badge.svg)](https://github.com/krzysztofbrzozowski/krzysztofbrzozowski_website/actions?query=workflow%3ADeploy)
@@ -189,5 +181,12 @@ from django.core.management.utils import get_random_secret_key
 print(get_random_secret_key())
 ```
 
+# ACME campaign
+in file e.g. /etc/nginx/vhost.d/dev.krzysztofborzowski.com put your stitic or media files such as
+```bash
+location /media/ {
+        alias /usr/src/app/media/;
+    }
+```
 
 

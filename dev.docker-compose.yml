@@ -72,6 +72,9 @@ services:
       - /etc/nginx/conf.d
       - certs:/etc/nginx/certs:ro
       # - static:/var/www/html/static
+      - ./app/media:/usr/src/app/media
+      - vhost:/etc/nginx/vhost.d
+
 
   dockergen:
     image: nginxproxy/docker-gen
@@ -101,7 +104,7 @@ volumes:
   db_data:
   certs:
 #   html:
-#   vhost:
+  vhost:
 #   acme:
 #   conf:
 #   static:
