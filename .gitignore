@@ -31,3 +31,6 @@ postgres_database.*
 *password*
 *username*
 admin_path.*
+
+# Ignore logs
+debug_logs
