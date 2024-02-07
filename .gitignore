@@ -34,3 +34,4 @@ admin_path.*
 
 # Ignore logs
 debug_logs
+*.log
