@@ -50,7 +50,6 @@ services:
 
   db:
     image: postgres:latest
-    restart: always
     volumes:
       - ./db-data:/db-data
       - db_data:/var/lib/postgresql/data:rw
