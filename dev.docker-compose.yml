@@ -50,7 +50,8 @@ services:
     image: postgres:latest
     restart: always
     volumes:
-      - db-data:/var/lib/postgresql/data:rw
+      - ./db-data:/db-data
+      - db_data:/var/lib/postgresql/data:rw
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -97,7 +98,7 @@ volumes:
 #   postgres_data:
 #   static_volume:
 #   media_volume:
-  db-data:
+  db_data:
   certs:
 #   html:
 #   vhost:

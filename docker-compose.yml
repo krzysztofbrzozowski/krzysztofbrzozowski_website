@@ -29,10 +29,10 @@ services:
       - POSTGRES_USERNAME_FILE=/run/secrets/POSTGRES_USERNAME
       - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
       - ADMIN_PATH_FILE=/run/secrets/ADMIN_PATH
-      
+
       # DEPLOY KEY SETTINGS 
       - PRODUCTION=true
-      - DO_INITIAL_DEPLOY=false
+      - DO_INITIAL_DEPLOY=true
       - DEBUG=false
 
       # Env variables for initial deploy
@@ -52,7 +52,8 @@ services:
     image: postgres:latest
     restart: always
     volumes:
-      - ./db-data:/var/lib/postgresql/data
+      - ./db-data:/db-data
+      - db_data:/var/lib/postgresql/data:rw
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
@@ -116,6 +117,7 @@ secrets:
     file: ./app/bin/admin_path.txt
 
 volumes:
+  db_data:
   postgres_data:
   static_volume:
   media_volume:
