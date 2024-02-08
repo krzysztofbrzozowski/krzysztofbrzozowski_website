@@ -101,10 +101,6 @@ handler403 = error_403
 handler404 = error_404
 handler500 = error_500
 
-# TODO set as no debug since NGINX not configured yet
-# if settings.DEBUG:
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-# print(f'Output from urls ->  {urlpatterns=}')
-
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
