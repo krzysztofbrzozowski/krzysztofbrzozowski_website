@@ -98,6 +98,11 @@ sudo chmod 777 /var/run/docker.sock
 ### Check for open ports and close any exposed ones
 ```bash
 udo ss -tulnp | grep LISTEN
+
+or from ext server
+nmap dev.krzysztofbrzozowski.com
+
+then
 sudo ufw deny 5432
 ```
 
