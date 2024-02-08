@@ -73,9 +73,10 @@ services:
       - "443:443"
     volumes:
       - conf:/etc/nginx/conf.d
-      - vhost:/etc/nginx/vhost.d
       - certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      # SETTING FOR SERVING MEDIA AND STATIC FILES
+      - ./nginx/vhost.d:/etc/nginx/vhost.d
       - ./app/media:/usr/src/app/media
 
   # NGINX REVERSE PROXY CONFIG
@@ -121,7 +122,7 @@ volumes:
   static_volume:
   media_volume:
   certs:
-  vhost:
+  # vhost:
   acme:
   conf:
 
