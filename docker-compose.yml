@@ -78,6 +78,7 @@ services:
       # SETTING FOR SERVING MEDIA AND STATIC FILES
       - ./nginx/vhost.d:/etc/nginx/vhost.d
       - ./app/media:/usr/src/app/media
+      - ./app/static:/usr/src/app/static
 
   # NGINX REVERSE PROXY CONFIG
   dockergen:
