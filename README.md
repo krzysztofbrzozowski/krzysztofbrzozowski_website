@@ -95,6 +95,12 @@ sudo chmod 777 /var/run/docker.sock
 ### Setup secrets for GitHub Actions and run action
 ![github-actions-secrets.png](https://krzysztofbrzozowski.com//media/2024/01/22/github-actions-secrets.png)
 
+### Check for open ports and close any exposed ones
+```bash
+udo ss -tulnp | grep LISTEN
+sudo ufw deny 5432
+```
+
 
 # Useful commands
 Docker compose (to run project)

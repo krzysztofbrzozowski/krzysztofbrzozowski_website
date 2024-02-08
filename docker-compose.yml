@@ -32,7 +32,7 @@ services:
 
       # DEPLOY KEY SETTINGS 
       - PRODUCTION=true
-      - DO_INITIAL_DEPLOY=false
+      - DO_INITIAL_DEPLOY=true
       - DEBUG=false
 
       # Env variables for initial deploy
@@ -57,7 +57,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     secrets:
       - POSTGRES_USERNAME
       - POSTGRES_PASSWORD
