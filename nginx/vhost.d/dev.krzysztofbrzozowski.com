@@ -1,5 +1,5 @@
 location /static/ {
-    alias /usr/src/app/static/
+    alias /usr/src/app/static/;
 }
 
 location /media/ {
