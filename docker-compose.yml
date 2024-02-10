@@ -31,7 +31,7 @@ services:
       - ADMIN_PATH_FILE=/run/secrets/ADMIN_PATH
 
       # DEPLOY KEY SETTINGS 
-      - PRODUCTION=false
+      - PRODUCTION=true
       - DO_INITIAL_DEPLOY=true
       - DEBUG=false
 
