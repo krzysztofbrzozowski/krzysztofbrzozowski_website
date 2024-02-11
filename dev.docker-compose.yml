@@ -58,6 +58,30 @@ services:
     ports:
       - "127.0.0.1:5432:5432"
 
+  # DATABASE BACKUPS
+  db-backup:
+    image: postgres:latest
+    depends_on:
+      - db
+    volumes:
+      - ./db-backup:/db-backup
+    command: >
+      bash -c "while true; do
+        PG_DB=$(</run/secrets/POSTGRES_DATABASE)
+        PG_USER=$(</run/secrets/POSTGRES_USERNAME)
+        PG_PASS=$(</run/secrets/POSTGRES_PASSWORD)
+
+        PGPASSWORD=$$PG_PASS pg_dump -h db -U $$PG_USER $$PG_DB > /db-backup/$${PG_DB}_$$(date +%Y%m%d-%H%M%S).dump
+        echo ""Backup done at $$(date +%Y-%m-%d_%H:%M:%S)""
+        ls -1 /db-backup/*.dump | head -n -2 | xargs rm -f
+        sleep 43200
+      done"
+      
+    secrets:
+      - POSTGRES_DATABASE
+      - POSTGRES_USERNAME
+      - POSTGRES_PASSWORD
+
   # NGINX BASIC CONFIG 
   nginx:
     depends_on:

@@ -62,6 +62,30 @@ services:
       - POSTGRES_USERNAME
       - POSTGRES_PASSWORD
 
+  # DATABASE BACKUPS
+  db-backup:
+    image: postgres:latest
+    depends_on:
+      - db
+    volumes:
+      - ./db-backup:/db-backup
+    command: >
+      bash -c "while true; do
+        PG_DB=$(</run/secrets/POSTGRES_DATABASE)
+        PG_USER=$(</run/secrets/POSTGRES_USERNAME)
+        PG_PASS=$(</run/secrets/POSTGRES_PASSWORD)
+
+        PGPASSWORD=$$PG_PASS pg_dump -h db -U $$PG_USER $$PG_DB > /db-backup/$${PG_DB}_$$(date +%Y%m%d-%H%M%S).dump
+        echo ""Backup done at $$(date +%Y-%m-%d_%H:%M:%S)""
+        ls -1 /db-backup/*.dump | head -n -2 | xargs rm -f
+        sleep 43200
+      done"
+      
+    secrets:
+      - POSTGRES_DATABASE
+      - POSTGRES_USERNAME
+      - POSTGRES_PASSWORD
+
   # NGINX BASIC CONFIG 
   nginx:
     depends_on:
@@ -130,26 +154,3 @@ volumes:
   acme:
   conf:
   html:
-
-
-
-
-
-# db-backup:
-  #   image: postgres:latest
-  #   depends_on:
-  #     - db
-  #   volumes:
-  #     - ./db-backup:/db-backup
-  #   command: >
-  #     bash -c "while true; do
-  #       PGPASSWORD=$$POSTGRES_PASSWORD pg_dump -h db -U $$POSTGRES_USER $$POSTGRES_DB > /db-backup/db_$$(date +%Y-%m-%d-%H-%M-%S).pgsql
-  #       echo ""Backup done at $$(date +%Y-%m-%d_%H:%M:%S)""
-  #       ls -1 /db-backup/*.dump | head -n -2 | xargs rm -f
-  #       cp -r /db-backup ../db-backup
-  #       sleep 86400
-  #     done"
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: postgres
-  #     POSTGRES_DB: db
