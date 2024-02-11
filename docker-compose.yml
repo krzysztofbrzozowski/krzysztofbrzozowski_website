@@ -20,8 +20,8 @@ services:
              gunicorn krzysztofbrzozowski.wsgi:application --workers=3 --bind 0.0.0.0:8000 "
 
     environment:
-      - VIRTUAL_HOST=dev.krzysztofbrzozowski.com
-      - LETSENCRYPT_HOST=dev.krzysztofbrzozowski.com
+      - VIRTUAL_HOST=krzysztofbrzozowski.com
+      - LETSENCRYPT_HOST=krzysztofbrzozowski.com
       - LETSENCRYPT_EMAIL=prim_zone_0x@icloud.com
 
       - DB_HOST=db

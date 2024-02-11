@@ -38,11 +38,12 @@ if os.environ.get('DEBUG') == 'false':
     DEBUG = False
 
     ALLOWED_HOSTS = [
-        'https://dev.krzysztofbrzozowski.com',
-        'dev.krzysztofbrzozowski.com',
+        'https://krzysztofbrzozowski.com',
+        'krzysztofbrzozowski.com',
         '*.krzysztofbrzozowski.com']
     
     CSRF_TRUSTED_ORIGINS = [
+        'https://krzysztofbrzozowski.com',
         'https://*.krzysztofbrzozowski.com']    
 
 # Application definition
