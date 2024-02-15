@@ -33,7 +33,7 @@ jobs:
                     echo "${{ secrets.POSTGRES_PASSWORD }}" > /home/${{ secrets.USERNAME }}/krzysztofbrzozowski_webpage/app/bin/postgres_password.txt
                     echo "${{ secrets.ADMIN_PATH }}" > /home/${{ secrets.USERNAME }}/krzysztofbrzozowski_webpage/app/bin/admin_path.txt
 
-                    decker compose down
+                    docker compose down --remove-orphans
                     docker compose -f "docker-compose.yml" up -d --build --remove-orphans
 
    
