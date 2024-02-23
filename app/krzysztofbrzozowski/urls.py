@@ -90,7 +90,7 @@ urlpatterns = [
     path('projects/tag/', projects_category_or_tag_redir, name='tag-project-list'),   #this is only redirect
     path('projects/tag/<slug>', search_results_projects_category_or_tag, name='tag-project-search-list'),
 
-    path('robots.txt', TemplateView.as_view(template_name="base/robots.txt", content_type="text/plain"), name="robots-file"),
+    path('robots.txt', TemplateView.as_view(template_name="core/robots.txt", content_type="text/plain"), name="robots-file"),
     
     path(f'{ADMIN_PATH}/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
