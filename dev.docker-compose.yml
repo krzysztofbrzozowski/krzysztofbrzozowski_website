@@ -19,7 +19,7 @@ services:
              gunicorn krzysztofbrzozowski.wsgi:application --bind 0.0.0.0:8000"
 
     environment:
-      - VIRTUAL_HOST=localhost
+      - VIRTUAL_HOST=localhost,127.0.0.1
       - LETSENCRYPT_HOST=localhost
       - LETSENCRYPT_EMAIL=prim_zone_0x@icloud.com
 
